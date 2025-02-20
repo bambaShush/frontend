@@ -11,17 +11,22 @@ const Login = ({setClientName}) => {
 
     const navigate = useNavigate();
     
-
     useEffect(() => {
-        if (authContext.userId) {
-            navigate("/"); 
-        }
+        checkauth();
     }, [navigate, authContext]);
+
+    const checkauth = async () => {
+        if (authContext.userId) {
+           if(!(await authContext.checkAuth()))
+            navigate("/login");
+        }
+    };
 
     if (!authContext) {
         console.error("AuthContext is undefined");
         return <div>Error</div>;
     }
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +34,6 @@ const Login = ({setClientName}) => {
             const userData = await login(username, password);
             setClientName(userData.firstName);
             authContext.login(userData); 
-            debugger;
             navigate("/appointments"); // Redirect to Dashboard
         } catch (error) {
             alert("Invalid credentials");

@@ -14,4 +14,15 @@ export const register = async (username, password) => {
     return response.data;
 };
 
+export const isLoggedIn = async (token) => {
+    try {
+        debugger;
+        return await axios.get(`${API_URL}/is-logged-in-user`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    } catch (error) {
+        return false;
+    }
+};
+
 

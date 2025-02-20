@@ -1,6 +1,6 @@
 import React,{ createContext, useState } from "react";
 import Cookies from "js-cookie";
-import { set } from "date-fns";
+import { isLoggedIn } from "../services/authService";
 
 export const AuthContext = createContext(null);
 
@@ -24,8 +24,12 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
     };
 
+    const checkAuth = async () => {
+        return await isLoggedIn(token);
+    };
+
     return (
-        <AuthContext.Provider value={{ userId, token, login, logout }}>
+        <AuthContext.Provider value={{ userId, token, login, logout, checkAuth }}>
             {children}
         </AuthContext.Provider>
     );

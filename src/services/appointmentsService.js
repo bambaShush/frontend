@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RequestError } from "../constants/requestError";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api/appointment";
 
@@ -10,9 +11,9 @@ export const fetchAppointments = async (token) => {
         });
         return response.data;
     } catch (error) {
-        if (error.response && error.response.status === 401) {
+        if (error.response && error.response.status === RequestError.UNAUTHORIZED) {
             console.error("Invalid credentials. Please try again");
-            window.location.href = "/login"; 
+            return error.response.status;
         } else {
             console.error("An error occurred. Please try again later");
         }

@@ -6,14 +6,16 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css"; 
 import { AuthContext } from "../context/AuthContext";
 import Select from "react-select";
-import { de } from "date-fns/locale";
+import { useNavigate } from "react-router-dom";
 
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     
-    const { token, userId } = useContext(AuthContext);
+    const { token, userId, checkAuth } = useContext(AuthContext);
     const [existingAppointmentsDates, setExistingAppointmentsDates] = useState([]);
+
+    const navigate = useNavigate();
 
     const getAppointments = async () => {
         try {
@@ -25,11 +27,16 @@ const Appointments = () => {
     };
 
     const getAppointmentsExistingDates = async () => {
-        const data = await getExistingDates(token);
-        setExistingAppointmentsDates(data);
+        try {
+            const data = await getExistingDates(token);
+            setExistingAppointmentsDates(data);
+        }catch (error) {
+            console.error("Failed to fetch existing dates", error);
+        }        
     }
 
     useEffect(() => {
+        checkLoggedIn();
         getAppointments();
     }, [token]);
 
@@ -37,6 +44,10 @@ const Appointments = () => {
         getAppointmentsExistingDates();
     }, [appointments]);
 
+    const checkLoggedIn = async () => {
+        if(!(await checkAuth()))
+            navigate("/login");
+    }
 
 
     const [selectedAppointment, setSelectedAppointment] = useState(null);
