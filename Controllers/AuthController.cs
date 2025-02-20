@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static UserService;
 
@@ -30,5 +31,13 @@ public class AuthController : ControllerBase
         if (result.UserResultType == UserResultType.InvalidCredentials)
             return Unauthorized("Invalid credentials.");
         return Ok(result);
+    }
+
+    [Authorize]
+    [HttpGet("is-logged-in-user")]
+    public async Task<IActionResult> IsLoggedInUser()
+    {
+        var _ = _userService.GetCurrentUserId();
+        return Ok();
     }
 }

@@ -19,6 +19,7 @@ public class AppointmentController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAppointments()
     {
+        var _ = _userService.GetCurrentUserId();
         var appointments = await _appointmentService.GetAppointments();
         return Ok(appointments);
     }
