@@ -1,0 +1,264 @@
+
+
+.appointments-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.appointments-table th,
+.appointments-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.appointments-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.appointments-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.appointments-table tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+
+.appointment-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+/* Form Title */
+.appointment-form h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Select Dropdown */
+.appointment-form .appointment-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+/* Select Focus */
+.appointment-form .appointment-select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button */
+.appointment-form .submit-button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.appointment-form .submit-button:hover {
+    background-color: #0056b3;
+}
+
+.appointments-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointments-filter label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.appointments-filter .date-picker {
+    width: 180px; 
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.appointments-filter .date-picker:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+.appointments-filter button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.appointments-filter button:hover {
+    background-color: #0056b3;
+}
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
+
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    position: relative;
+    text-align: center;
+}
+
+
+.popup-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.popup-close-btn:hover {
+    color: black;
+}
+
+
+.popup-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.popup-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+
+.popup-select:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+
+.popup-button {
+    width: 100px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+
+.popup-save-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.popup-save-btn:hover {
+    background-color: #0056b3;
+}
+
+.popup-delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.popup-delete-btn:hover {
+    background-color: #b02a37;
+}
+
+
+.popup-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.popup-close {
+    background-color: #6c757d;
+    color: white;
+}
+
+.popup-close:hover {
+    background-color: #545b62;
+}
+
+
+.popup-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}

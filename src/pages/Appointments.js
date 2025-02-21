@@ -7,6 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import { AuthContext } from "../context/AuthContext";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import "../styles/Appointments.css";
 
 
 const Appointments = () => {
@@ -111,12 +112,12 @@ const Appointments = () => {
     };
 
     return (
-        <div className="p-6">
+        <div className="appointments-container">
             
-            <h2 className="text-2xl font-bold mb-4">Appointments</h2>
+            <h2>Appointments</h2>
 
-            <form onSubmit={handleSubmit} className="mb-6 p-4 bg-white shadow-md rounded-lg max-w-md">
-                <h3 className="text-lg font-semibold mb-3">Add New Appointment</h3>
+            <form onSubmit={handleSubmit} className="appointment-form">
+                <h3>Add New Appointment</h3>
                  <Select
                     options={availableDateTimes.map((appointmentDate, index) => (
                         {value: appointmentDate, label: appointmentDate}
@@ -125,7 +126,7 @@ const Appointments = () => {
                     placeholder="Select when..."
                     isSearchable
                 />
-                <button type="submit" className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-300 border border-blue-700">
+                <button type="submit" className="submit-button">
                     Add Appointment
                 </button>
             </form>
@@ -133,43 +134,45 @@ const Appointments = () => {
             <br/>
             
             {/* Filters */}
-            <div className="mb-4 p-4 bg-white shadow-md rounded-lg flex gap-4">    
+            <div className="appointments-filter">    
                 <input
                     type="text"
                     placeholder="Filter by name"
                     value={nameFilter}
                     onChange={(e) => setNameFilter(e.target.value)}
-                    className="w-1/3 p-2 border rounded"
+                    className="date-picker"
                 />
-                <label htmlFor="appointment-date" className="block text-gray-700 font-medium mb-2">
-                Start Date:
-                </label>
-            
-                <DatePicker
+
+                <div>                
+                    <label htmlFor="start-date">Start Date:</label>
+                    <DatePicker
+                    id="start-date"
                     value={startDate}
                     onChange={(date) => setStartDate(date)}
                     placeholderText="Start Date"
                     className="w-1/3 p-2 border rounded"
                     format="yyyy-MM-dd"
-                />
-                <label htmlFor="appointment-date" className="block text-gray-700 font-medium mb-2">
-                End Date:
-                </label>
+                /></div>
+
+                <div>
+                <label htmlFor="end-date">End Date:</label>
                 <DatePicker
+                    id="end-date"
                     value={endDate}
                     onChange={(date) => setEndDate(date)}
                     placeholderText="End Date"
-                    className="w-1/3 p-2 border rounded"
+                    className="date-picker"
                     format="yyyy-MM-dd"
                 />
+                </div>
             </div>
 
             {/* Appointments Table */}
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-300 shadow-lg rounded-lg">
+                <table className="appointments-table">
                     <thead>
                         <tr className="bg-gray-100 border-b">
-                            <th className="px-4 py-2 text-left">Dog Name</th>
+                            <th className="px-4 py-2 text-left">First name</th>
                             <th className="px-4 py-2 text-left">Date & Time</th>
                         </tr>
                     </thead>
@@ -193,47 +196,49 @@ const Appointments = () => {
             {/* Popup */}
             <div id="overlay" className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden">
                 {selectedAppointment && (
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-                        <button onClick={handleClosePopup} className="absolute top-2 right-2 text-gray-600 hover:text-black text-lg">
+                    <div className="popup-content">
+                        <button onClick={handleClosePopup} className="popup-close-btn">
                             ✖
                         </button>
 
-                        <h3 className="text-xl font-semibold mb-3 text-center">Appointment Details</h3>
+                        <h3 className="text-xl font-semibold mb-3">Appointment Details</h3>
 
-                        <label className="block text-sm font-medium text-gray-700">Name: {selectedAppointment.userFirstName}</label>
+                        <label className="popup-label">Name: {selectedAppointment.userFirstName}</label>
                         <br/>
 
-                        <label className="block text-sm font-medium text-gray-700">Date & Time: {new Date(selectedAppointment.appointmentDate).toLocaleString()}</label>
+                        <label className="popup-label">Date & Time: {new Date(selectedAppointment.appointmentDate).toLocaleString()}</label>
 
                         <br/>
-                        <label className="block text-sm font-medium text-gray-700">Created: {new Date(selectedAppointment.createdAt).toLocaleString()} </label>
+                        <label className="popup-label">Created: {new Date(selectedAppointment.createdAt).toLocaleString()} </label>
                         <br/>
-                        <label className="block text-sm font-medium text-gray-700">Edit</label>
+                        <label className="popup-label">Edit</label>
                         <select
                             value={updatedDateTime || selectedAppointment.appointmentDate}
                             onChange={(e) => {setUpdatedDateTime(e.target.value)}}
                             disabled={selectedAppointment.userId != userId}
                             
-                            className="w-full p-2 border rounded mb-3"
+                            className="popup-select"
                         >
                             {availableDateTimes.map((appointmentDate, index) => (
                                 <option key={index} value={appointmentDate}>{appointmentDate}</option>
                             ))}
                         </select>
-                        <br/>
-                        <button disabled={selectedAppointment.userId != userId} onClick={updateAppointmentClick} className="absolute top-2 right-2 text-gray-600 hover:text-black text-lg ">
+                        <div className="popup-actions">
+                        <button disabled={selectedAppointment.userId != userId} onClick={updateAppointmentClick} className="popup-button popup-save-btn">
                             Save
                         </button>
                         <br/>
-                        <button disabled={selectedAppointment.userId != userId}  onClick={deleteAppointmentClick} className="absolute top-2 right-2 text-gray-600 hover:text-black text-lg">
+                        <button disabled={selectedAppointment.userId != userId}  onClick={deleteAppointmentClick} className="popup-button popup-delete-btn">
                             Delete
                         </button>
 
                         <div className="flex justify-end space-x-2 mt-4">
-                            <button onClick={handleClosePopup} className="px-4 py-2 bg-gray-400 text-white rounded">
+                            <button onClick={handleClosePopup} className="popup-button popup-close">
                                 Close
                             </button>
                         </div>
+                        </div>
+                        
                     </div>
                 )}
             </div>
